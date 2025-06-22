@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits } from 'discord.js';
-import { initWebSocket, registerIncomingWSHandler } from './ws';
+import { initWebSocket } from './ws';
 import dotenv from 'dotenv';
 import { handleMessage } from './events/message';
 
