@@ -13,20 +13,23 @@ export function initWebSocket(client: Client) {
   ws.on('message', async (raw) => {
     try {
       const data = JSON.parse(raw.toString());
-
-      if (data.type === 'send_message') {
-        const channel = client.channels.cache.get(data.channelId);
-        if (channel?.isTextBased()) {
-          await (channel as any).send({
-            content: data.content,
-            username: data.username || 'Guest',
-          });
-        }
-      }
+      handleIncomingMessage(data, client);
     } catch (err) {
       console.error('Error al procesar mensaje WS:', err);
     }
   });
+}
+
+function handleIncomingMessage(data: any, client: Client) {
+  if (data.type === 'send_message') {
+    const channel = client.channels.cache.get(data.channelId);
+    if (channel?.isTextBased()) {
+      (channel as any).send({
+        content: data.content,
+        username: data.username || 'Guest',
+      }).catch(console.error);
+    }
+  }
 }
 
 export function sendWSMessage(data: any) {
