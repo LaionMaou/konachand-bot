@@ -8,3 +8,16 @@ Bot en TypeScript que replica la funcionalidad de WidgetBot:
 
 Crea un archivo `.env` basado en `.env.example` con:
 
+DISCORD_TOKEN=...
+WS_SERVER=wss://render-url.onrender.com
+## Uso
+
+```bash
+npm install
+npm run build
+npm start
+
+## Docker
+
+docker build -t konachand-bot .
+docker run --env-file .env konachand-bot
